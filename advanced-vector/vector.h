@@ -252,6 +252,7 @@ T& Vector<T>::EmplaceBack(Args&&... args) {
 template <typename T>
 template <typename... Args>
 typename Vector<T>::iterator Vector<T>::Emplace(const_iterator pos, Args&&... args) {
+    assert(pos >= begin() && pos <= end());
     size_t offset = pos - cbegin();
 
     if (size_ == Capacity()) {
@@ -306,6 +307,7 @@ typename Vector<T>::iterator Vector<T>::Insert(const_iterator pos, T&& value) {
 
 template <typename T>
 typename Vector<T>::iterator Vector<T>::Erase(const_iterator pos) {
+    assert(pos >= begin() && pos < end());
     size_t offset = pos - cbegin();
 
     std::move(begin() + offset + 1, end(), begin() + offset);
